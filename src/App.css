@@ -11,13 +11,22 @@ body {
   margin: 0;
   /* background-color: #0b2434; */
   padding: 20px;
+  background-color: #62ddff;
+  height: 100vh;
 }
 
 main {
-  background-color: #f5f5f5;
-  height: 400px;
   max-width: 800px;
-  border-radius: 5px;
+  height: 500px;
+  border-radius: 10px;
+  border: 1px solid #ffff;
+  margin: 20px;
+}
+
+.tenzie-main {
+  border-radius: 10px;
+  height: 500px;
+  max-width: 800px;
   padding: 20px; /** 내부*/
   display: flex;
   flex-direction: column;
@@ -25,7 +34,6 @@ main {
   justify-content: space-around;
   align-items: center;
 }
-
 .die-container {
   display: grid;
   /* grid-template-columns: repeat( 5, 1fr );  */

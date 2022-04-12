@@ -46,8 +46,11 @@ import "tailwindcss/tailwind.css";
  */
 
 export default function App() {
+  // window.resizeTo(1000, 700);
   const [dice, setDice] = useState(allNewDice());
   const [tenzies, setTenzies] = useState(false);
+  const [first, setFirst] = useState(true);
+  const [time, setTime] = useState(0);
   /**
    * Challenge:
    * 1. Add new state called `tenzies`, default to false. It
@@ -55,15 +58,19 @@ export default function App() {
    * 2. Add an effect that runs every time the `dice` state array
    *    changes. For now, just console.log("Dice state changed").
    */
+
+  // useEffect(() => {
+  //   return setFirst(false);
+  // }, [first]);
   useEffect(() => {
     const allHeld = dice.every((die) => die.isHeld);
     const firstValue = dice[0].value;
     const allSameValue = dice.every((die) => die.value === firstValue);
+
     if (allHeld && allSameValue) {
       setTenzies(true);
       const modal = document.querySelector(".alert");
       modal.style.display = "block";
-      console.log("You won!");
     }
 
     /**
@@ -191,62 +198,96 @@ export default function App() {
 
   const alertStyle = {
     position: "absolute",
-    top: "100px",
+    top: "150px",
     left: "300px",
-    width: "10%",
-    height: "100 %",
+    width: "13%",
+    height: "12%",
     display: "none",
   };
-  return (
-    <main data-theme="aqua">
-      {tenzies && <ReactConfetti />}
-      <h1 className="title">Tenzies</h1>
-      <p className="instructions">
-        Roll until all dice are the same. Click each die to freeze it at its
-        current value between rolls.
-      </p>
-      <div className="die-container">{diceElements}</div>
-      {tenzies === false ? (
-        <button
-          type="button"
-          class="btn btn-outline btn-primary"
-          onClick={tenzies ? newGame : reRoll}
-        >
-          {/* {tenzies ? "New Game" : "roll"} */}
-          roll
-        </button>
-      ) : (
-        ""
-      )}
 
-      <div class="alert shadow-lg" style={alertStyle}>
-        <div>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            class="stroke-info flex-shrink-0 w-6 h-6"
+  const firstStyle = {
+    // position: "absolute",
+    position: "relative",
+    top: "170px",
+    left: "270px",
+    width: "30%",
+    height: "20%",
+    border: "1px solid #ffff",
+    // display: "none",
+  };
+  return (
+    <div>
+      {tenzies && <ReactConfetti />}
+      <main data-theme="forest">
+        {first ? (
+          <button
+            style={firstStyle}
+            class="btn btn-active"
+            onClick={() => {
+              setFirst(false);
+            }}
           >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-            ></path>
-          </svg>
-          <div>
-            <h3 class="text-xs">New message!</h3>
-            <div class="font-bold">You one the game!</div>
-          </div>
-        </div>
-        <br />
-        <div class="flex-none">
-          &nbsp;&nbsp; &nbsp; &nbsp;
-          <button class="btn btn-sm" onClick={tenzies ? newGame : reRoll}>
-            new game?
+            Tenzies Game ? 🎮
           </button>
-        </div>
-      </div>
-    </main>
+        ) : (
+          <div className="tenzie-main">
+            <h1 className="title">Tenzies</h1>
+            <p className="instructions">
+              Roll until all dice are the same. Click each die to freeze it at
+              its current value between rolls.
+            </p>
+            <div className="die-container">{diceElements}</div>
+            {tenzies === false ? (
+              <button
+                type="button"
+                class="btn btn-info"
+                onClick={tenzies ? newGame : reRoll}
+              >
+                {/* {tenzies ? "New Game" : "roll"} */}
+                roll
+              </button>
+            ) : (
+              ""
+            )}
+
+            <div class="alert alert-info shadow-lg" style={alertStyle}>
+              <div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  class="stroke-info flex-shrink-0 w-6 h-6"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  ></path>
+                </svg>
+                <div>
+                  {/* <h3 class="text-xs">🎉🎉🎉🎉🎉</h3> */}
+                  <div class="font-bold">
+                    <h1>🎉 You one the game!</h1>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex-none">
+                <br />
+                <br />
+                &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+                <button
+                  class="btn btn-active"
+                  onClick={tenzies ? newGame : reRoll}
+                >
+                  wanna new game?
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </main>
+    </div>
   );
 }

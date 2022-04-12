@@ -24,7 +24,8 @@ import React from "react";
  */
 export default function Die({ value, isHeld, diceId, holdDice }) {
   const styles = {
-    backgroundColor: isHeld ? "#59E391" : "white",
+    backgroundColor: isHeld ? "#62ddff" : "white",
+    color: isHeld ?? "white",
   };
 
   // function hold() {
