@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 * {
   box-sizing: border-box;
   font-family: "Karla", sans-serif;
@@ -5,7 +9,7 @@
 
 body {
   margin: 0;
-  background-color: #0b2434;
+  /* background-color: #0b2434; */
   padding: 20px;
 }
 

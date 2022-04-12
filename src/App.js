@@ -3,6 +3,7 @@ import "./App.css";
 import Die from "./Die";
 import { nanoid } from "nanoid";
 import ReactConfetti from "react-confetti";
+import "tailwindcss/tailwind.css";
 /**
  * Challenge:
  *
@@ -60,6 +61,8 @@ export default function App() {
     const allSameValue = dice.every((die) => die.value === firstValue);
     if (allHeld && allSameValue) {
       setTenzies(true);
+      const modal = document.querySelector(".alert");
+      modal.style.display = "block";
       console.log("You won!");
     }
 
@@ -169,6 +172,8 @@ export default function App() {
   function newGame() {
     setTenzies(false);
     setDice(allNewDice());
+    const modal = document.querySelector(".alert");
+    modal.style.display = "none";
   }
 
   const diceElements = dice.map((diceNum, index) => {
@@ -184,8 +189,16 @@ export default function App() {
     );
   });
 
+  const alertStyle = {
+    position: "absolute",
+    top: "100px",
+    left: "300px",
+    width: "10%",
+    height: "100 %",
+    display: "none",
+  };
   return (
-    <main>
+    <main data-theme="aqua">
       {tenzies && <ReactConfetti />}
       <h1 className="title">Tenzies</h1>
       <p className="instructions">
@@ -193,13 +206,47 @@ export default function App() {
         current value between rolls.
       </p>
       <div className="die-container">{diceElements}</div>
-      <button
-        type="button"
-        className="roll-dice"
-        onClick={tenzies ? newGame : reRoll}
-      >
-        {tenzies ? "New Game" : "roll"}
-      </button>
+      {tenzies === false ? (
+        <button
+          type="button"
+          class="btn btn-outline btn-primary"
+          onClick={tenzies ? newGame : reRoll}
+        >
+          {/* {tenzies ? "New Game" : "roll"} */}
+          roll
+        </button>
+      ) : (
+        ""
+      )}
+
+      <div class="alert shadow-lg" style={alertStyle}>
+        <div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            class="stroke-info flex-shrink-0 w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            ></path>
+          </svg>
+          <div>
+            <h3 class="text-xs">New message!</h3>
+            <div class="font-bold">You one the game!</div>
+          </div>
+        </div>
+        <br />
+        <div class="flex-none">
+          &nbsp;&nbsp; &nbsp; &nbsp;
+          <button class="btn btn-sm" onClick={tenzies ? newGame : reRoll}>
+            new game?
+          </button>
+        </div>
+      </div>
     </main>
   );
 }
