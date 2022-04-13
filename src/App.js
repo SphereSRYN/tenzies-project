@@ -59,9 +59,6 @@ export default function App() {
    *    changes. For now, just console.log("Dice state changed").
    */
 
-  // useEffect(() => {
-  //   return setFirst(false);
-  // }, [first]);
   useEffect(() => {
     const allHeld = dice.every((die) => die.isHeld);
     const firstValue = dice[0].value;
@@ -111,6 +108,8 @@ export default function App() {
   }
 
   function allNewDice() {
+    let date = new Date();
+    console.log(date);
     let diceArray = new Array(10);
     for (let index = 0; index < diceArray.length; index++) {
       // let number = Math.ceil(Math.random() * 6);
@@ -197,11 +196,6 @@ export default function App() {
   });
 
   const alertStyle = {
-    position: "absolute",
-    top: "150px",
-    left: "300px",
-    width: "13%",
-    height: "12%",
     display: "none",
   };
 
